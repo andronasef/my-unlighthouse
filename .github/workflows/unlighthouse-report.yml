@@ -1,0 +1,30 @@
+name: Assertions and static report
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'The website URL to analyze'
+        required: true
+        default: 'https://example.com'
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Dependencies
+        run: npm install -g @unlighthouse/cli puppeteer
+
+      - name: Unlighthouse assertions and client
+        run: unlighthouse-ci --site ${{ github.event.inputs.site_url }} --budget 75 --build-static
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: .unlighthouse
+          commit-message: "New Release Deploy from GitHub Actions"
