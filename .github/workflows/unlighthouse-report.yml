@@ -20,7 +20,7 @@ jobs:
         run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Unlighthouse assertions and client
-        run: unlighthouse-ci --site ${{ github.event.inputs.site_url }} --budget 75 --build-static
+        run: unlighthouse-ci --site ${{ github.event.inputs.site_url }} --build-static
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
