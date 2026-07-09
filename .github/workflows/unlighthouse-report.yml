@@ -1,5 +1,4 @@
 name: Assertions and static report
-
 on:
   workflow_dispatch:
     inputs:
@@ -8,22 +7,31 @@ on:
         required: true
         default: 'https://example.com'
 
+permissions:
+  contents: write
+
 jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm install -g @unlighthouse/cli puppeteer
 
       - name: Unlighthouse assertions and client
-        run: unlighthouse-ci --site ${{ github.event.inputs.site_url }} --build-static
+        run: unlighthouse-ci --site "${{ github.event.inputs.site_url }}" --build-static
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: .unlighthouse
