@@ -1,0 +1,98 @@
+[
+  {
+    "path": "/",
+    "score": 0.93,
+    "performance": 0.96,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/about",
+    "score": 0.93,
+    "performance": 0.96,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/contact",
+    "score": 0.93,
+    "performance": 0.99,
+    "accessibility": 0.94,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects",
+    "score": 0.92,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/ama-investors-website/",
+    "score": 0.92,
+    "performance": 0.93,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/designer-vision/",
+    "score": 0.92,
+    "performance": 0.93,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/diraks-premium-fresh-seafood-delivery/",
+    "score": 0.92,
+    "performance": 0.93,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/fajr-premium-egyptian-leather-goods-e-commerce-platform/",
+    "score": 0.92,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/mustard-seed-project-ngo-website/",
+    "score": 0.91,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.73,
+    "seo": 1
+  },
+  {
+    "path": "/projects/pcabins-portable-house-factory-e-commerce-website/",
+    "score": 0.92,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/rawand-printers-e-commerce-blog-design/",
+    "score": 0.92,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.77,
+    "seo": 1
+  },
+  {
+    "path": "/projects/tharaa-luxury-abaya-e-commerce-store/",
+    "score": 0.91,
+    "performance": 0.92,
+    "accessibility": 0.98,
+    "best-practices": 0.73,
+    "seo": 1
+  }
+]
