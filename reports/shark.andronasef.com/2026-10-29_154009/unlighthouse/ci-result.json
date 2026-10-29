@@ -1,0 +1,74 @@
+[
+  {
+    "path": "/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/features/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/cut-and-paste-files-mac/",
+    "score": 0.95,
+    "performance": 0.99,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/dual-pane-file-manager-mac/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/finder-alternatives-mac/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/open-terminal-in-folder-mac/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/guides/windows-file-explorer-on-mac/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  },
+  {
+    "path": "/privacy/",
+    "score": 0.95,
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 0.81,
+    "seo": 1
+  }
+]
