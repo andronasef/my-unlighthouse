@@ -1,4 +1,4 @@
-name: Assertions and static report
+name: Unlighthouse + SEO audit report
 on:
   workflow_dispatch:
     inputs:
@@ -10,29 +10,73 @@ on:
 permissions:
   contents: write
 
+# Two runs at once would race on reports.json
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
 jobs:
-  demo:
+  report:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ github.event.inputs.site_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
-          fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install Dependencies
-        run: npm install -g @unlighthouse/cli puppeteer
+        run: |
+          npm install -g @unlighthouse/cli@latest puppeteer @seomator/seo-audit@latest
+          npx playwright install --with-deps chromium
 
-      - name: Unlighthouse assertions and client
-        run: unlighthouse-ci --site "${{ github.event.inputs.site_url }}" --build-static
+      - name: Pick report id
+        # https://www.Example.com:8080/path -> example.com-8080
+        run: |
+          echo "REPORT_ID=$(date -u +%Y-%m-%d_%H%M%S)" >> "$GITHUB_ENV"
+          echo "SITE_SLUG=$(echo "$SITE_URL" | tr 'A-Z' 'a-z' | sed -E 's#^[a-z]+://##; s#[/?#].*##; s#^www\.##; s#[^a-z0-9.-]#-#g')" >> "$GITHUB_ENV"
+
+      - name: Unlighthouse
+        run: unlighthouse-ci --site "$SITE_URL" --build-static
+
+      - name: SEO audit
+        # exits 1 when score < 70; still publish the report
+        run: |
+          mkdir -p seo
+          seomator audit "$SITE_URL" --format html -o seo/index.html || true
+          seomator audit "$SITE_URL" --format json -o seo/results.json || true
+
+      - name: Merge into existing gh-pages
+        env:
+          REPO_URL: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
+        run: |
+          if git ls-remote --exit-code --heads "$REPO_URL" gh-pages >/dev/null; then
+            git clone --depth 1 --branch gh-pages "$REPO_URL" site
+            rm -rf site/.git
+          else
+            mkdir site
+          fi
+          dest="site/reports/$SITE_SLUG/$REPORT_ID"
+          mkdir -p "$dest"
+          cp -r .unlighthouse "$dest/unlighthouse"
+          cp -r seo "$dest/seo"
+          [ -f site/reports.json ] || echo '[]' > site/reports.json
+          jq --arg id "$REPORT_ID" --arg site "$SITE_SLUG" --arg url "$SITE_URL" \
+             --argjson seo "$( [ -f seo/index.html ] && echo true || echo false )" \
+             '[{id: $id, site: $site, url: $url, seo: $seo}] + .' site/reports.json > tmp.json
+          mv tmp.json site/reports.json
+          cp dashboard/index.html site/index.html
+          touch site/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: .unlighthouse
-          commit-message: "New Release Deploy from GitHub Actions"
+          folder: site
+          clean: false
+          commit-message: "Report ${{ env.SITE_SLUG }}/${{ env.REPORT_ID }}"
